@@ -7,14 +7,66 @@ const mayella = { name: 'Mayella', employeeNumber: '89068', annualSalary: '35000
 const employees = [ atticus, jem, scout, robert, mayella ];
 
 class Employee{
-  constructor( name, employeeNumber, annualSalary, reviewRating ){
+  constructor( name, bonusPercentage, totalCompensation, totalBonus ){
     this.name = name;
-    this.employeeNumber = employeeNumber;
-    this.annualSalary = annualSalary;
-    this.reviewRating = reviewRating;
+    this.bonusPercentage = bonusPercentage;
+    this.totalCompensation = totalCompensation;
+    this.totalBonus = totalBonus;
   } // end constructor
 } // end Employee class
 
 // YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
 
 console.log( employees );
+
+// function enterEmployee(employee) {
+//   if(employee.reviewRating === 3){
+//     let bonusPercent = .04;
+//     let bonus = employee.annualSalary * bonusPercent;
+//   } else if(employee.reviewRating === 4){
+//     let bonusPercent = .06;
+//     let bonus = employee.annualSalary * bonusPercent;
+//   } else if(employee.reviewRating === 5){
+//     let bonusPercent = .1;
+//     let bonus = employee.annualSalary * bonusPercent;
+//   } else if()
+//   return new Employee();
+// }
+
+function convertEmp(employee){
+  let bonusPercent = bonusPercentage(employee.employeeNumber, employee.reviewRating, parseInt(employee.annualSalary));
+  if(bonusPercent > .13){
+    bonusPercent = .13;
+  }
+  let totalBonus = parseInt(employee.annualSalary) * bonusPercent;
+  let totalCompensation = parseInt(employee.annualSalary) + totalBonus;
+  return new Employee(employee.name, bonusPercent, totalCompensation, totalBonus);
+}
+
+function bonusPercentage(num, rating, salary){
+  let bonusPercent;
+  switch (rating) {
+    case 1:
+    case 2:
+      bonusPercent = 0;
+      break;
+    case 3:
+      bonusPercent = .04;
+      break;
+    case 4:
+      bonusPercent = .06;
+      break;
+    case 5:
+      bonusPercent = .1;
+      break;
+  } // end switch
+
+  if(num.length === 4){
+    bonusPercent += .05;
+  }
+
+  if(salary > 65000){
+    bonusPercent -= .01;
+  }
+  return bonusPercent;
+}  // end bonusPercent()
