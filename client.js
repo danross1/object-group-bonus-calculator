@@ -19,28 +19,16 @@ class Employee{
 
 console.log( employees );
 
-// function enterEmployee(employee) {
-//   if(employee.reviewRating === 3){
-//     let bonusPercent = .04;
-//     let bonus = employee.annualSalary * bonusPercent;
-//   } else if(employee.reviewRating === 4){
-//     let bonusPercent = .06;
-//     let bonus = employee.annualSalary * bonusPercent;
-//   } else if(employee.reviewRating === 5){
-//     let bonusPercent = .1;
-//     let bonus = employee.annualSalary * bonusPercent;
-//   } else if()
-//   return new Employee();
-// }
-
 function convertEmp(employee){
   let bonusPercent = bonusPercentage(employee.employeeNumber, employee.reviewRating, parseInt(employee.annualSalary));
   if(bonusPercent > .13){
     bonusPercent = .13;
+  } else if(bonusPercent < 0){
+    bonusPercent = 0;
   }
   let totalBonus = parseInt(employee.annualSalary) * bonusPercent;
   let totalCompensation = parseInt(employee.annualSalary) + totalBonus;
-  return new Employee(employee.name, bonusPercent, totalCompensation, totalBonus);
+  return new Employee(employee.name, bonusPercent, totalCompensation, Math.round(totalBonus));
 }
 
 function bonusPercentage(num, rating, salary){
@@ -70,3 +58,9 @@ function bonusPercentage(num, rating, salary){
   }
   return bonusPercent;
 }  // end bonusPercent()
+
+function loopEmp(arr){
+  for(let e of arr){
+    console.log(convertEmp(e));
+  }
+}
